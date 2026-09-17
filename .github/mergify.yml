@@ -69,6 +69,16 @@ pull_request_rules:
         add:
           - ci-passed
 
+  - name: Add ci-passed when unit test is not triggered
+    conditions:
+      - or: *BRANCHES
+      - "check-success=pre-commit"
+      - "-files~=^(include/|src/|test/|conanfile\\.py$|Makefile$|CMakeLists\\.txt$|\\.github/workflows/ut\\.yaml$)"
+    actions:
+      label:
+        add:
+          - ci-passed
+
   - name: Auto-queue when all review labels present
     conditions:
       - or: *BRANCHES
